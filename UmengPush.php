@@ -13,13 +13,13 @@ require_once(dirname(__FILE__) . '/' . 'notification/ios/IOSCustomizedcast.php')
 
 class UmengPush
 {
-    protected $android_app_key;
-    protected $android_app_master_secret;
-    protected $android_production_mode;// 是否是生产模型(true=正式;false=测试. 处于测试模型时,只有在友盟工作台添加了测试设备,该测试设备才能收到通知)
+    public $android_app_key;
+    public $android_app_master_secret;
+    public $android_production_mode;// 是否是生产模型(true=正式;false=测试. 处于测试模型时,只有在友盟工作台添加了测试设备,该测试设备才能收到通知)
 
-    protected $ios_app_key;
-    protected $ios_app_master_secret;
-    protected $ios_production_mode;// 是否是生产模型(true=正式;false=测试. 处于测试模型时,只有在友盟工作台添加了测试设备,该测试设备才能收到通知)
+    public $ios_app_key;
+    public $ios_app_master_secret;
+    public $ios_production_mode;// 是否是生产模型(true=正式;false=测试. 处于测试模型时,只有在友盟工作台添加了测试设备,该测试设备才能收到通知)
 
     private function getTime()
     {
