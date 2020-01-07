@@ -1,4 +1,5 @@
 <?php
+namespace garengoh\umeng;
 require_once(dirname(__FILE__) . '/' . 'notification/android/AndroidBroadcast.php');
 require_once(dirname(__FILE__) . '/' . 'notification/android/AndroidFilecast.php');
 require_once(dirname(__FILE__) . '/' . 'notification/android/AndroidGroupcast.php');

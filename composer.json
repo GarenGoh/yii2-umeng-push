@@ -1,10 +1,10 @@
 {
-  "name": "garengoh/yii2-umengpush",
-  "description": "XiaoMiPush for PHP Yii2",
-  "keywords": [ "xiaomipush", "xiaomi", "yii2" ],
+  "name": "garengoh/yii2-umeng-push",
+  "description": "Umeng Push for PHP Yii2",
+  "keywords": [ "umeng", "push", "yii2" ],
   "type": "library",
   "license": "Apache-2.0",
-  "homepage": "https://github.com/garengoh/yii2-xiaomipush.git",
+  "homepage": "https://github.com/GarenGoh/yii2-umeng-push.git",
   "authors": [
     {
       "name": "GarenGoh",
@@ -19,7 +19,7 @@
   },
   "autoload": {
     "psr-4": {
-      "garengoh\\xmpush\\": ""
+      "garengoh\\umeng\\": ""
     }
   },
   "minimum-stability": "dev"
