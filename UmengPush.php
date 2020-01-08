@@ -1,15 +1,17 @@
 <?php
 namespace garengoh\umeng;
-require_once(dirname(__FILE__) . '/' . 'notification/android/AndroidBroadcast.php');
-require_once(dirname(__FILE__) . '/' . 'notification/android/AndroidFilecast.php');
-require_once(dirname(__FILE__) . '/' . 'notification/android/AndroidGroupcast.php');
-require_once(dirname(__FILE__) . '/' . 'notification/android/AndroidUnicast.php');
-require_once(dirname(__FILE__) . '/' . 'notification/android/AndroidCustomizedcast.php');
-require_once(dirname(__FILE__) . '/' . 'notification/ios/IOSBroadcast.php');
-require_once(dirname(__FILE__) . '/' . 'notification/ios/IOSFilecast.php');
-require_once(dirname(__FILE__) . '/' . 'notification/ios/IOSGroupcast.php');
-require_once(dirname(__FILE__) . '/' . 'notification/ios/IOSUnicast.php');
-require_once(dirname(__FILE__) . '/' . 'notification/ios/IOSCustomizedcast.php');
+use garengoh\umeng\notification\android\AndroidBroadcast;
+use garengoh\umeng\notification\android\AndroidFilecast;
+use garengoh\umeng\notification\android\AndroidGroupcast;
+use garengoh\umeng\notification\android\AndroidUnicast;
+use garengoh\umeng\notification\android\AndroidCustomizedcast;
+use garengoh\umeng\notification\AndroidNotification;
+use garengoh\umeng\notification\ios\IOSBroadcast;
+use garengoh\umeng\notification\ios\IOSFilecast;
+use garengoh\umeng\notification\ios\IOSGroupcast;
+use garengoh\umeng\notification\ios\IOSUnicast;
+use garengoh\umeng\notification\ios\IOSCustomizedcast;
+use garengoh\umeng\notification\IOSNotification;
 
 class UmengPush
 {
@@ -59,12 +61,12 @@ class UmengPush
      *
      * @param string $device_tokens
      * @return AndroidUnicast
-     * @throws Exception
+     * @throws \Exception
      */
     function androidUniCast($device_tokens)
     {
         if (strpos($device_tokens, ',') !== false && count(explode(',', $device_tokens)) > 500) {
-            throw new Exception('device_token 超出上限!');
+            throw new \Exception('device_token 超出上限!');
         }
 
         /**

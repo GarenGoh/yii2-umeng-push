@@ -1,5 +1,6 @@
 <?php
-include_once __DIR__ . '/UmengPush.php';
+namespace garengoh\umeng;
+
 
 $demo = new UmengPush();
 
@@ -12,10 +13,6 @@ $cast = $demo->androidBroadCast()
     ->setPredefinedKeyValue("after_open", "go_custom")
     //->setExtraField("test", "helloworld")
     ->setPredefinedKeyValue("custom", "2");
-
-$result = $cast->send();
-print_r($result);
-exit;
 
 // 组发
 $filter = [
@@ -41,6 +38,12 @@ $cast = $demo->androidCustomizedCast("100000", "userId")
     ->setPredefinedKeyValue("text", "单次别名发送的简介")
     ->setPredefinedKeyValue("after_open", "go_custom")
     ->setPredefinedKeyValue("custom", "2");
+
+$result = $cast->send();
+print_r($result);
+exit;
+
+
 
 
 // -------IOS测试------

@@ -1,5 +1,7 @@
 <?php
-require_once(dirname(__FILE__) . '/../IOSNotification.php');
+namespace garengoh\umeng\notification\ios;
+
+use garengoh\umeng\notification\IOSNotification;
 
 class IOSListcast extends IOSNotification {
 	function __construct() {
