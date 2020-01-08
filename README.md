@@ -46,7 +46,6 @@ Yii::$app->umengPushService->androidCustomizedCast("你的别名", "你的别名
      ->setPredefinedKeyValue("custom", "2")
      ->send();
 ```
-
 ##### 组发(根据过滤条件发送)
 过滤方式有很多,建议参考官方文档([过滤条件示例](https://developer.umeng.com/docs/66632/detail/68343#h2--g-14))
 ```
