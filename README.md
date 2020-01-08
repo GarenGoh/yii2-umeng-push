@@ -3,6 +3,10 @@
 * 邮箱: garen.goh@qq.com
 * 主页: [wqiang.net](wqiang.net)
 
+##如何使用依赖包
+```
+composer require garengoh/yii2-umeng-push:dev-master
+```
 
 ## 配置
 ```
