@@ -1,13 +1,12 @@
 <?php
 namespace garengoh\umeng;
+
 use garengoh\umeng\notification\android\AndroidBroadcast;
-use garengoh\umeng\notification\android\AndroidFilecast;
 use garengoh\umeng\notification\android\AndroidGroupcast;
 use garengoh\umeng\notification\android\AndroidUnicast;
 use garengoh\umeng\notification\android\AndroidCustomizedcast;
 use garengoh\umeng\notification\AndroidNotification;
 use garengoh\umeng\notification\ios\IOSBroadcast;
-use garengoh\umeng\notification\ios\IOSFilecast;
 use garengoh\umeng\notification\ios\IOSGroupcast;
 use garengoh\umeng\notification\ios\IOSUnicast;
 use garengoh\umeng\notification\ios\IOSCustomizedcast;
@@ -23,9 +22,52 @@ class UmengPush
     public $ios_app_master_secret;
     public $ios_production_mode;// 是否是生产模型(true=正式;false=测试. 处于测试模型时,只有在友盟工作台添加了测试设备,该测试设备才能收到通知)
 
+    const SYSTEM_ANDROID = 1;
+    const SYSTEM_IOS = 2;
+
     private function getTime()
     {
         return strval(time());
+    }
+
+    /**
+     * 友盟API请求通用接口
+     * 如果你不习惯使用封装好的方法,可以使用这个通用方法请求所有友盟的接口
+     *
+     * @param integer $system 设备类型(1=安卓,2=IOS)
+     * @param String $path API路径(如:/api/status, 任务类消息状态查询)
+     * @param array $data 请求体
+     * @param string $method 方法
+     * @return mixed
+     * @throws \Exception
+     */
+    function send($system, $path, $data, $method = 'POST')
+    {
+        if (!in_array($system, [self::SYSTEM_ANDROID, self::SYSTEM_IOS])) {
+            throw new \Exception('设备类型选择错误!');
+        }
+
+        $method = strtoupper($method);
+        $host = 'https://msgapi.umeng.com';
+        $url = $host . $path;
+        $secret = $system == 1 ? $this->android_app_master_secret : $this->ios_app_master_secret;
+        $data = json_encode($data);
+        $sign = md5($method . $url . $data . $secret);
+        $url = $url . "?sign=" . $sign;
+
+        $ch = curl_init($url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
+        curl_setopt($ch, CURLOPT_BINARYTRANSFER, 1);
+        if ($method == "POST") {
+            curl_setopt($ch, CURLOPT_POST, 1);
+        }
+        curl_setopt($ch, CURLOPT_CONNECTTIMEOUT, 60);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 60);
+        curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+        $result = curl_exec($ch);
+        curl_close($ch);
+
+        return $result;
     }
 
     /**
@@ -194,8 +236,9 @@ class UmengPush
          */
         $cast = new IOSCustomizedcast();
         $cast = $this->iosCommonCast($cast)
-        ->setPredefinedKeyValue("alias", (string)$alias)
-        ->setPredefinedKeyValue("alias_type", (string)$alias_type);
+            ->setPredefinedKeyValue("alias", (string)$alias)
+            ->setPredefinedKeyValue("alias_type", (string)$alias_type);
+
         return $cast;
     }
 }
